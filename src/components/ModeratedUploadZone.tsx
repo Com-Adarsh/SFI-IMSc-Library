@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, FileText, CheckCircle, AlertCircle, X, Loader } from 'lucide-react';
+import { Upload, FileText, CheckCircle, AlertCircle, X } from 'lucide-react';
 import { SUBJECTS, SEMESTERS, CATEGORIES } from '@/lib/constants';
 
 interface UploadFormData {
@@ -67,7 +66,6 @@ export default function ModeratedUploadZone() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validation
     if (!formData.title || !formData.subject || !formData.semester || !formData.category || !formData.file) {
       setStatus({ type: 'error', message: 'Please fill in all required fields.' });
       return;
@@ -76,7 +74,6 @@ export default function ModeratedUploadZone() {
     setStatus({ type: 'loading', message: 'Uploading to moderation queue...' });
     setUploadProgress(0);
 
-    // Simulate upload progress
     const interval = setInterval(() => {
       setUploadProgress(prev => {
         if (prev >= 90) {
@@ -88,7 +85,6 @@ export default function ModeratedUploadZone() {
     }, 200);
 
     try {
-      // In production: Upload to Supabase storage and create pending record
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       clearInterval(interval);
@@ -96,10 +92,9 @@ export default function ModeratedUploadZone() {
       
       setStatus({
         type: 'success',
-        message: 'Resource submitted successfully! Our team will review and publish it shortly. You will receive a confirmation email.',
+        message: 'Resource submitted successfully! Our team will review and publish it shortly.',
       });
       
-      // Reset form
       setFormData({
         title: '',
         subject: '',
@@ -110,9 +105,14 @@ export default function ModeratedUploadZone() {
         uploaderEmail: '',
         file: null,
       });
+      
+      setTimeout(() => {
+        setUploadProgress(0);
+      }, 2000);
     } catch (error) {
       clearInterval(interval);
       setStatus({ type: 'error', message: 'Upload failed. Please try again.' });
+      setUploadProgress(0);
     }
   };
 
@@ -120,18 +120,15 @@ export default function ModeratedUploadZone() {
     <section className="py-16 bg-gradient-to-br from-slate-navy to-slate-800">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
-          {/* Header */}
           <div className="text-center mb-8">
-            <h2 className="text-h2 text-white mb-4">Contribute to the Library</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Contribute to the Library</h2>
             <p className="text-white/80">
-              Share your study materials with the IMSC community. All submissions are reviewed by moderators before publication.
+              Share your study materials with the IMSC community. All submissions are reviewed before publication.
             </p>
           </div>
 
-          {/* Upload Form */}
           <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-2xl p-8">
             <div className="space-y-6">
-              {/* Title */}
               <div>
                 <label className="block text-slate-navy font-medium mb-2">
                   Document Title <span className="text-crimson">*</span>
@@ -146,7 +143,6 @@ export default function ModeratedUploadZone() {
                 />
               </div>
 
-              {/* Subject and Semester */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-slate-navy font-medium mb-2">
@@ -182,7 +178,6 @@ export default function ModeratedUploadZone() {
                 </div>
               </div>
 
-              {/* Category */}
               <div>
                 <label className="block text-slate-navy font-medium mb-2">
                   Resource Type <span className="text-crimson">*</span>
@@ -206,11 +201,8 @@ export default function ModeratedUploadZone() {
                 </div>
               </div>
 
-              {/* Description */}
               <div>
-                <label className="block text-slate-navy font-medium mb-2">
-                  Description (Optional)
-                </label>
+                <label className="block text-slate-navy font-medium mb-2">Description (Optional)</label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
@@ -220,7 +212,6 @@ export default function ModeratedUploadZone() {
                 />
               </div>
 
-              {/* Uploader Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-slate-navy font-medium mb-2">
@@ -248,7 +239,6 @@ export default function ModeratedUploadZone() {
                 </div>
               </div>
 
-              {/* File Upload Area */}
               <div>
                 <label className="block text-slate-navy font-medium mb-2">
                   PDF File <span className="text-crimson">*</span>
@@ -287,82 +277,4 @@ export default function ModeratedUploadZone() {
                   ) : (
                     <>
                       <Upload className="mx-auto text-slate-gray mb-4" size={48} />
-                      <p className="text-slate-navy font-medium mb-2">
-                        Drag & drop your PDF here, or click to browse
-                      </p>
-                      <p className="text-sm text-slate-gray mb-4">
-                        Maximum file size: 50 MB
-                      </p>
-                      <label className="inline-block cursor-pointer">
-                        <input
-                          type="file"
-                          accept=".pdf"
-                          onChange={(e) => e.target.files && handleFileSelect(e.target.files[0])}
-                          className="hidden"
-                        />
-                        <span className="btn-primary inline-block">
-                          Browse Files
-                        </span>
-                      </label>
-                    </>
-                  )}
-                </div>
-              </div>
-
-              {/* Upload Progress */}
-              {uploadProgress > 0 && uploadProgress < 100 && (
-                <div className="space-y-2">
-                  <div className="h-2 bg-light-gray rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-crimson transition-all duration-300"
-                      style={{ width: `${uploadProgress}%` }}
-                    />
-                  </div>
-                  <p className="text-sm text-slate-gray text-center">{uploadProgress}% uploaded</p>
-                </div>
-              )}
-
-              {/* Status Message */}
-              <AnimatePresence>
-                {status.message && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className={`p-4 rounded-lg flex items-center gap-3 ${
-                      status.type === 'success'
-                        ? 'bg-emerald/10 text-emerald border border-emerald/30'
-                        : status.type === 'error'
-                        ? 'bg-red-100 text-red-700 border border-red-300'
-                        : 'bg-blue-100 text-blue-700 border border-blue-300'
-                    }`}
-                  >
-                    {status.type === 'success' && <CheckCircle size={20} />}
-                    {status.type === 'error' && <AlertCircle size={20} />}
-                    {status.type === 'loading' && <Loader className="animate-spin" size={20} />}
-                    <span>{status.message}</span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={status.type === 'loading'}
-                className="w-full btn-primary py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {status.type === 'loading' ? 'Submitting...' : 'Submit for Review'}
-              </button>
-
-              {/* Info Note */}
-              <div className="text-center text-sm text-slate-gray">
-                <p>All submissions are reviewed by the SFI IMSC Sub-Committee before publication.</p>
-                <p className="mt-1">You will receive a confirmation email once your resource is approved.</p>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-  );
-}
+                      <p className="text
