@@ -36,4 +36,12 @@ CREATE TABLE exam_attempts (
   exam_id UUID REFERENCES exams(id) ON DELETE CASCADE,
   user_id UUID REFERENCES users(id),
   score INT NOT NULL,
-  answers JSON
+  answers JSONB,
+  time_taken INT,
+  completed_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Create indexes
+CREATE INDEX idx_exams_code ON exams(exam_code);
+CREATE INDEX idx_exam_questions_exam ON exam_questions(exam_id);
+CREATE INDEX idx_exam_attempts_exam ON exam_attempts(exam_id);
