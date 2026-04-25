@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
   } else if (req.method === 'POST') {
     try {
-      const { title, subject, semester, category, file_url, file_size_mb, description, uploader_id, uploader_name, uploader_email } = req.body;
+      const { title, subject, semester, category, file_url, file_size_mb, description, uploader_name, uploader_email } = req.body;
 
       const { data, error } = await supabase
         .from('resources')
@@ -37,7 +37,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           file_url,
           file_size_mb: parseFloat(file_size_mb),
           description,
-          uploader_id,
           uploader_name,
           uploader_email,
           status: 'pending',
