@@ -1,0 +1,41 @@
+abhimanyu-learning-space/
+├── public/
+│   ├── cusat-logo.svg
+│   ├── abhimanyu-logo.svg
+│   └── favicon.ico
+├── src/
+│   ├── components/
+│   │   ├── Navigation.tsx
+│   │   ├── Footer.tsx
+│   │   ├── LibraryGrid.tsx
+│   │   ├── CBTModule.tsx
+│   │   ├── ModeratedUploadZone.tsx
+│   │   └── SubjectCard.tsx
+│   ├── pages/
+│   │   ├── _app.tsx
+│   │   ├── _document.tsx
+│   │   ├── index.tsx
+│   │   ├── library.tsx
+│   │   ├── cbt.tsx
+│   │   ├── upload.tsx
+│   │   ├── subject/[subject].tsx
+│   │   └── api/
+│   │       ├── resources.ts
+│   │       ├── upload.ts
+│   │       └── cbt-results.ts
+│   ├── lib/
+│   │   ├── supabase.ts
+│   │   ├── constants.ts
+│   │   └── types.ts
+│   ├── styles/
+│   │   └── globals.css
+│   └── types/
+│       └── index.ts
+├── .env.local
+├── .gitignore
+├── next.config.js
+├── tailwind.config.js
+├── postcss.config.js
+├── tsconfig.json
+├── package.json
+└── README.md
