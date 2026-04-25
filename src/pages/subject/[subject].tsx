@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Download, FileText, Clock, User, Filter, ChevronDown } from 'lucide-react';
-import { SUBJECTS, SEMESTERS, CATEGORIES } from '@/lib/constants';
+import { Filter, FileText, ArrowRight } from 'lucide-react';
+import { SUBJECTS, SEMESTERS } from '@/lib/constants';
 import Footer from '@/components/Footer';
 
 export default function SubjectPage() {
   const router = useRouter();
   const { subject: subjectPath } = router.query;
-  const [selectedSemester, setSelectedSemester] = useState<number | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [filterType, setFilterType] = useState('all');
 
   const subject = SUBJECTS.find(s => s.path === subjectPath);
 
@@ -25,9 +24,9 @@ export default function SubjectPage() {
     );
   }
 
-  const filteredSemesters = selectedCategory === 'all' 
+  const filteredSemesters = filterType === 'all' 
     ? SEMESTERS 
-    : SEMESTERS.filter(s => s.type === (selectedCategory === 'odd' ? 'Odd' : 'Even'));
+    : SEMESTERS.filter(s => s.type === (filterType === 'odd' ? 'Odd' : 'Even'));
 
   return (
     <>
@@ -42,7 +41,7 @@ export default function SubjectPage() {
             <div className="flex items-center gap-4">
               <span className="text-6xl">{subject.icon}</span>
               <div>
-                <h1 className="text-h1">{subject.name}</h1>
+                <h1 className="text-4xl md:text-5xl font-bold">{subject.name}</h1>
                 <p className="text-lg opacity-90 mt-2">{subject.description}</p>
               </div>
             </div>
@@ -55,9 +54,9 @@ export default function SubjectPage() {
             <div className="flex flex-wrap items-center gap-4">
               <Filter size={20} className="text-slate-gray" />
               <button
-                onClick={() => setSelectedCategory('all')}
+                onClick={() => setFilterType('all')}
                 className={`px-4 py-2 rounded-lg font-medium transition ${
-                  selectedCategory === 'all'
+                  filterType === 'all'
                     ? 'bg-crimson text-white'
                     : 'hover:bg-light-gray'
                 }`}
@@ -65,9 +64,9 @@ export default function SubjectPage() {
                 All Semesters
               </button>
               <button
-                onClick={() => setSelectedCategory('odd')}
+                onClick={() => setFilterType('odd')}
                 className={`px-4 py-2 rounded-lg font-medium transition ${
-                  selectedCategory === 'odd'
+                  filterType === 'odd'
                     ? 'bg-crimson text-white'
                     : 'hover:bg-light-gray'
                 }`}
@@ -75,9 +74,9 @@ export default function SubjectPage() {
                 Odd Semesters (1,3,5,7,9)
               </button>
               <button
-                onClick={() => setSelectedCategory('even')}
+                onClick={() => setFilterType('even')}
                 className={`px-4 py-2 rounded-lg font-medium transition ${
-                  selectedCategory === 'even'
+                  filterType === 'even'
                     ? 'bg-crimson text-white'
                     : 'hover:bg-light-gray'
                 }`}
@@ -108,13 +107,12 @@ export default function SubjectPage() {
                   </p>
                   <div className="flex justify-between items-center">
                     <span className="text-xs text-slate-gray">📄 Resources available</span>
-                    <span className="text-crimson group-hover:translate-x-1 transition">Browse →</span>
+                    <ArrowRight className="text-crimson group-hover:translate-x-1 transition" size={18} />
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Coming Soon Message */}
             <div className="mt-12 text-center p-8 bg-white rounded-xl border border-light-gray">
               <p className="text-slate-gray">
                 📚 More resources are being added regularly. 
