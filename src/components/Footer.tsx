@@ -32,7 +32,7 @@ export default function Footer() {
             <h4 className="font-semibold text-white mb-4">Connect With Us</h4>
             <div className="space-y-3">
               <a
-                href={WHATSAPP_CHANNEL_URL}
+                href={Follow the SFI CUSAT channel on WhatsApp: https://whatsapp.com/channel/0029VaesYjiHgZWZT1NwWo1z}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 hover:text-emerald transition"
