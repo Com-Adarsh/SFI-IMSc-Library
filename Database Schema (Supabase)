@@ -1,0 +1,39 @@
+-- Exams table
+CREATE TABLE exams (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  exam_code VARCHAR(50) UNIQUE NOT NULL,
+  exam_name VARCHAR(255) NOT NULL,
+  duration INT NOT NULL, -- in minutes
+  total_questions INT NOT NULL,
+  marking_scheme JSONB NOT NULL,
+  passing_percentage INT DEFAULT 40,
+  is_active BOOLEAN DEFAULT true,
+  metadata JSONB,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Exam questions table
+CREATE TABLE exam_questions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  exam_id UUID REFERENCES exams(id) ON DELETE CASCADE,
+  question_number INT NOT NULL,
+  question_text TEXT NOT NULL,
+  option_a TEXT NOT NULL,
+  option_b TEXT NOT NULL,
+  option_c TEXT,
+  option_d TEXT,
+  correct_answer CHAR(1) NOT NULL,
+  explanation TEXT,
+  marks INT DEFAULT 1,
+  negative_marks INT DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Exam attempts table
+CREATE TABLE exam_attempts (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  exam_id UUID REFERENCES exams(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES users(id),
+  score INT NOT NULL,
+  answers JSON
