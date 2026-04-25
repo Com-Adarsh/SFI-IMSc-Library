@@ -277,4 +277,73 @@ export default function ModeratedUploadZone() {
                   ) : (
                     <>
                       <Upload className="mx-auto text-slate-gray mb-4" size={48} />
-                      <p className="text
+                      <p className="text-slate-navy font-medium mb-2">
+                        Drag & drop your PDF here, or click to browse
+                      </p>
+                      <p className="text-sm text-slate-gray mb-4">
+                        Maximum file size: 50 MB
+                      </p>
+                      <label className="inline-block cursor-pointer">
+                        <input
+                          type="file"
+                          accept=".pdf"
+                          onChange={(e) => e.target.files && handleFileSelect(e.target.files[0])}
+                          className="hidden"
+                        />
+                        <span className="bg-crimson text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition inline-block">
+                          Browse Files
+                        </span>
+                      </label>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {uploadProgress > 0 && uploadProgress < 100 && (
+                <div className="space-y-2">
+                  <div className="h-2 bg-light-gray rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-crimson transition-all duration-300"
+                      style={{ width: `${uploadProgress}%` }}
+                    />
+                  </div>
+                  <p className="text-sm text-slate-gray text-center">{uploadProgress}% uploaded</p>
+                </div>
+              )}
+
+              {status.message && (
+                <div className={`p-4 rounded-lg flex items-center gap-3 ${
+                  status.type === 'success'
+                    ? 'bg-emerald/10 text-emerald border border-emerald/30'
+                    : status.type === 'error'
+                    ? 'bg-red-100 text-red-700 border border-red-300'
+                    : 'bg-blue-100 text-blue-700 border border-blue-300'
+                }`}>
+                  {status.type === 'success' && <CheckCircle size={20} />}
+                  {status.type === 'error' && <AlertCircle size={20} />}
+                  {status.type === 'loading' && (
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-700"></div>
+                  )}
+                  <span>{status.message}</span>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={status.type === 'loading'}
+                className="w-full bg-crimson text-white py-4 rounded-lg font-medium hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed text-lg"
+              >
+                {status.type === 'loading' ? 'Submitting...' : 'Submit for Review'}
+              </button>
+
+              <div className="text-center text-sm text-slate-gray">
+                <p>All submissions are reviewed before publication.</p>
+                <p className="mt-1">You will receive a confirmation email once your resource is approved.</p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
