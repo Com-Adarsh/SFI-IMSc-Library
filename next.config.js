@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['images.unsplash.com', 'supabase.co'],
+    domains: ['images.unsplash.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -11,9 +11,6 @@ const nextConfig = {
     ],
   },
   swcMinify: true,
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
 };
 
 module.exports = nextConfig;
