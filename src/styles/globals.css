@@ -38,7 +38,7 @@
 
 @layer components {
   .card {
-    @apply bg-white/95 backdrop-blur-sm border border-white/20 rounded-xl shadow-card p-6 transition-all duration-300;
+    @apply bg-white backdrop-blur-sm border border-light-gray rounded-xl shadow-card p-6 transition-all duration-300;
   }
 
   .card:hover {
@@ -46,43 +46,11 @@
   }
 
   .btn-primary {
-    @apply bg-crimson text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition-all duration-300 transform hover:scale-105 focus:ring-2 focus:ring-crimson focus:ring-offset-2;
+    @apply bg-crimson text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition-all duration-300 transform hover:scale-105;
   }
 
   .btn-secondary {
-    @apply border-2 border-crimson text-crimson px-6 py-3 rounded-lg font-medium hover:bg-crimson hover:text-white transition-all duration-300 transform hover:scale-105;
-  }
-
-  .btn-outline {
-    @apply border border-light-gray text-slate-navy px-6 py-3 rounded-lg font-medium hover:border-crimson hover:text-crimson transition-all duration-300;
-  }
-
-  .glass-card {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  .animate-pulse-slow {
-    animation: pulseSlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  @keyframes pulseSlow {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    @apply border-2 border-crimson text-crimson px-6 py-3 rounded-lg font-medium hover:bg-crimson hover:text-white transition-all duration-300;
   }
 }
 
