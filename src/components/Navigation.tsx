@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronDown, Upload, BookOpen, Computer, Mail } from 'lucide-react';
+import { Menu, X, ChevronDown, Upload, BookOpen } from 'lucide-react';
 import { SUBJECTS } from '@/lib/constants';
 
 export default function Navigation() {
@@ -28,8 +28,8 @@ export default function Navigation() {
           {/* Logo and Title */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="flex gap-2">
-              <img src="/cusat-logo.svg" alt="CUSAT" className="h-12 w-auto" />
-              <img src="/abhimanyu-logo.svg" alt="Abhimanyu" className="h-12 w-auto" />
+              <img src="/cusat-logo.svg" alt="CUSAT" className="h-12 w-auto" onError={(e) => (e.currentTarget.style.display = 'none')} />
+              <img src="/abhimanyu-logo.svg" alt="Abhimanyu" className="h-12 w-auto" onError={(e) => (e.currentTarget.style.display = 'none')} />
             </div>
             <div className="hidden sm:block">
               <h1 className="text-xl font-black tracking-tight text-slate-navy">
@@ -66,11 +66,6 @@ export default function Navigation() {
               </div>
             </div>
 
-            <Link href="/cbt" className="flex items-center gap-2 text-slate-navy font-medium hover:text-crimson transition">
-              <Computer size={16} />
-              CBT Mock Tests
-            </Link>
-
             <Link href="/upload" className="flex items-center gap-2 bg-crimson text-white px-5 py-2 rounded-lg font-medium hover:bg-red-700 transition">
               <Upload size={16} />
               Upload Resource
@@ -78,9 +73,8 @@ export default function Navigation() {
 
             <a
               href="mailto:sfiimscsubcommittee25@gmail.com"
-              className="flex items-center gap-2 text-slate-gray hover:text-crimson transition"
+              className="text-slate-gray hover:text-crimson transition text-sm"
             >
-              <Mail size={16} />
               Contact
             </a>
           </div>
@@ -111,13 +105,6 @@ export default function Navigation() {
                 </Link>
               ))}
               <div className="border-t border-light-gray my-2"></div>
-              <Link
-                href="/cbt"
-                className="block px-3 py-2 text-slate-navy font-medium hover:text-crimson transition"
-                onClick={() => setIsOpen(false)}
-              >
-                CBT Mock Tests
-              </Link>
               <Link
                 href="/upload"
                 className="block px-3 py-2 text-crimson font-medium hover:bg-crimson/10 rounded-lg transition"
