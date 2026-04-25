@@ -171,6 +171,18 @@ export default function PDFQuestionParser({
           </div>
         )}
 
+        {/* Parse Button */}
+        {selectedFile && !result && !parsing && (
+          <div className="mt-6">
+            <button
+              onClick={handleParse}
+              className="w-full bg-crimson text-white py-3 rounded-lg font-medium hover:bg-red-700 transition"
+            >
+              Parse PDF
+            </button>
+          </div>
+        )}
+
         {/* Parsing Progress */}
         {parsing && (
           <div className="mt-6 space-y-3">
