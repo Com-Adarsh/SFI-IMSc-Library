@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle, XCircle, Edit2, Save, ArrowLeft, ArrowRight, AlertTriangle } from 'lucide-react';
+import { CheckCircle, Edit2, Save, ArrowLeft, ArrowRight, AlertTriangle } from 'lucide-react';
 import { ParsedQuestion } from '@/lib/question-extractor';
 
 interface AdminQuestionPreviewProps {
