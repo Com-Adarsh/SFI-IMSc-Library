@@ -14,7 +14,7 @@ export default function Library() {
       <main className="min-h-screen pt-20">
         <div className="bg-slate-navy text-white py-16">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-h1 mb-4">Professional Library</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Professional Library</h1>
             <p className="text-lg opacity-90 max-w-2xl mx-auto">
               9 disciplines, 10 semesters, 1000+ resources. All verified and organized for easy access.
             </p>
