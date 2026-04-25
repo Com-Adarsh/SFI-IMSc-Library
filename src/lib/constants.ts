@@ -1,4 +1,3 @@
-// Subject definitions for the library
 export const SUBJECTS = [
   { 
     name: 'Physics', 
@@ -77,16 +76,7 @@ export const CATEGORIES = [
   { value: 'student_notes', label: 'Student Notes', icon: '📝' },
 ];
 
-// CBT Exam Codes
-export const CBT_EXAMS = [
-  { code: '101', name: 'General Aptitude Test', duration: 120, totalQuestions: 100 },
-  { code: '104', name: 'Subject Proficiency Test', duration: 180, totalQuestions: 150 },
-  { code: '202', name: 'Advanced Mathematics', duration: 150, totalQuestions: 120 },
-  { code: '301', name: 'Research Methodology', duration: 90, totalQuestions: 75 },
-];
-
 export const APP_NAME = 'Abhimanyu Learning Space';
-export const APP_DESCRIPTION = 'A focused academic environment for CUSAT students featuring Professional Library and CBT Mock Test System.';
 export const CONTACT_EMAIL = 'sfiimscsubcommittee25@gmail.com';
 export const WHATSAPP_CHANNEL_URL = 'https://whatsapp.com/channel/0029VaesYjiHgZWZT1NwWo1z';
 export const INSTAGRAM_URL = 'https://www.instagram.com/sfi_imsc_subcommittee_cusat';
