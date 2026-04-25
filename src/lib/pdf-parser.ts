@@ -1,7 +1,9 @@
 import * as pdfjsLib from 'pdfjs-dist';
 
 // Configure PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+if (typeof window !== 'undefined') {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+}
 
 export interface ExtractedQuestion {
   id: string;
@@ -170,6 +172,7 @@ export function extractQuestionsFromText(text: string, fileName: string): Extrac
 
 /**
  * Extract images from PDF pages (for complex formulas/diagrams)
+ * Note: This runs on client-side only
  */
 export async function extractImagesFromPDF(file: File): Promise<Map<number, string>> {
   const arrayBuffer = await file.arrayBuffer();
@@ -218,7 +221,12 @@ export async function parsePDFToQuestions(
     
     // Step 3: Extract images for visual questions
     onProgress?.(70);
-    const imageMap = await extractImagesFromPDF(file);
+    let imageMap: Map<number, string> = new Map();
+    try {
+      imageMap = await extractImagesFromPDF(file);
+    } catch (imgError) {
+      console.warn('Image extraction failed, continuing with text only');
+    }
     
     // Step 4: Match images to questions based on page number
     onProgress?.(85);
