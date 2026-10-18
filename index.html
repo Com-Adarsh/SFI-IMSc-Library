@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a2b">
+  <meta name="description" content="Abhimanyu Learning Space — the SFI IMSc Digital Library for textbooks, notes, and previous-year question papers at CUSAT.">
+  <title>Abhimanyu Learning Space | SFI IMSc Digital Library</title>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Com-Adarsh/library-sheet/main/abhimanyu.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to library</a>
+  <div class="site-shell">
+    <header class="hero">
+      <nav class="top-nav wrap" aria-label="Main navigation">
+        <a class="brand-mini" href="#top" aria-label="Abhimanyu Learning Space home">
+          <img src="https://raw.githubusercontent.com/Com-Adarsh/library-sheet/main/abhimanyu.png" alt="Abhimanyu Learning Space emblem" width="42" height="42">
+          <span>ABHIMANYU <b>LEARNING SPACE</b></span>
+        </a>
+        <div class="top-actions">
+          <a class="nav-link" href="#library">Library</a>
+          <a class="nav-link" href="#contributors">Contributors</a>
+          <button class="theme-toggle" type="button" data-action="toggle-theme" aria-label="Switch color theme">
+            <span class="theme-icon" aria-hidden="true">☼</span><span id="theme-label">Light mode</span>
+          </button>
+        </div>
+      </nav>
+      <div class="hero-content wrap" id="top">
+        <div class="logo-pair" aria-label="CUSAT and SFI IMSc">
+          <img src="https://raw.githubusercontent.com/Com-Adarsh/library-sheet/main/abhimanyu.png" alt="Abhimanyu emblem" width="70" height="70">
+          <img src="https://raw.githubusercontent.com/Com-Adarsh/library-sheet/main/sfi%20imsc%20logo.png" alt="SFI IMSc logo" width="70" height="70">
+        </div>
+        <p class="eyebrow">SFI IMSc DIGITAL LIBRARY · CUSAT</p>
+        <h1>Knowledge belongs<br class="mobile-break"> to everyone.</h1>
+        <p class="hero-subtitle">A shared shelf for the notes, textbooks, and question papers that help us move forward together.</p>
+        <a class="hero-cta" href="#library">Explore the library <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-ribbon" aria-hidden="true"><span>ABHIMANYU LEARNING SPACE</span><span>STUDY · SHARE · GROW</span></div>
+    </header>
+
+    <main id="main-content">
+      <section class="library-head wrap" id="library" aria-labelledby="library-title">
+        <div class="section-intro">
+          <div>
+            <p class="eyebrow eyebrow-red">YOUR STUDY DESK</p>
+            <h2 id="library-title">Find what you need.</h2>
+            <p class="section-copy">Search the collection, narrow it down, and get back to learning.</p>
+          </div>
+          <label class="semester-select-wrap" for="my-semester">
+            <span class="select-caption">YOUR SEMESTER</span>
+            <select id="my-semester" aria-label="Choose your semester">
+              <option value="">Choose semester</option>
+              <option value="1">Semester 1</option><option value="2">Semester 2</option>
+              <option value="3">Semester 3</option><option value="4">Semester 4</option>
+              <option value="5">Semester 5</option><option value="6">Semester 6</option>
+              <option value="7">Semester 7</option><option value="8">Semester 8</option>
+              <option value="9">Semester 9</option><option value="10">Semester 10</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="search-sticky">
+          <div class="search-bar">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <label class="visually-hidden" for="resource-search">Search resources</label>
+            <input id="resource-search" type="search" placeholder="Search textbooks, subjects, or PYQ years…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-suggestions">
+            <button class="clear-search" id="clear-search" type="button" data-action="clear-search" aria-label="Clear search" hidden>×</button>
+            <div class="resource-counter" id="resource-counter" aria-live="polite" hidden><span class="counter-dot"></span><strong id="resource-count">—</strong><span>resources</span></div>
+            <div class="suggestions" id="search-suggestions" role="listbox" hidden></div>
+          </div>
+        </div>
+
+        <div class="filters" aria-label="Filter resources">
+          <div class="filter-line"><span class="filter-label">SEMESTER</span><div class="chips" id="semester-filters"></div></div>
+          <div class="filter-line"><span class="filter-label">RESOURCE TYPE</span><div class="chips" id="type-filters"></div></div>
+          <div class="filter-line subject-filter-line"><span class="filter-label">SUBJECT</span><div class="chips" id="subject-filters"><span class="filter-hint">Subjects appear when the library loads.</span></div></div>
+        </div>
+      </section>
+
+      <section class="discovery wrap" aria-labelledby="discovery-title">
+        <div class="section-heading-row">
+          <div><p class="eyebrow eyebrow-red">A LITTLE DIRECTION</p><h2 id="discovery-title">What students are opening</h2></div>
+          <p class="local-note"><span aria-hidden="true">◉</span> Your activity stays on this device</p>
+        </div>
+        <div class="discovery-grid">
+          <article class="discovery-card">
+            <div class="discovery-card-head"><span class="icon-tile icon-warm" aria-hidden="true">↗</span><div><h3>Most opened PYQs this week</h3><p>Based on your recent activity here</p></div></div>
+            <ol id="weekly-pyqs" class="discovery-list"><li class="discovery-empty">Your recently opened PYQs will appear here.</li></ol>
+          </article>
+          <article class="discovery-card discovery-card-red">
+            <div class="discovery-card-head"><span class="icon-tile icon-light" aria-hidden="true">✳</span><div><h3 id="semester-trend-title">Trending notes for your semester</h3><p>Notes you return to, tracked privately</p></div></div>
+            <ol id="semester-notes" class="discovery-list"><li class="discovery-empty">Choose your semester above to see relevant notes.</li></ol>
+          </article>
+        </div>
+      </section>
+
+      <section class="resources-section wrap" aria-labelledby="results-title">
+        <div class="results-heading">
+          <div><p class="eyebrow eyebrow-red">THE COLLECTION</p><h2 id="results-title">Library resources</h2></div>
+          <div class="results-tools">
+            <span id="active-filter-label" class="active-filter-label">All resources</span>
+            <button type="button" class="text-button" data-action="reset-filters">Reset filters</button>
+          </div>
+        </div>
+        <p id="results-summary" class="results-summary" aria-live="polite">Loading the collection…</p>
+        <div id="loading-skeletons" class="resource-grid" aria-label="Loading resources">
+          <article class="skeleton-card"><div class="skeleton-line skeleton-short"></div><div class="skeleton-title"></div><div class="skeleton-line"></div><div class="skeleton-line skeleton-wide"></div><div class="skeleton-button"></div></article>
+          <article class="skeleton-card"><div class="skeleton-line skeleton-short"></div><div class="skeleton-title"></div><div class="skeleton-line"></div><div class="skeleton-line skeleton-wide"></div><div class="skeleton-button"></div></article>
+          <article class="skeleton-card"><div class="skeleton-line skeleton-short"></div><div class="skeleton-title"></div><div class="skeleton-line"></div><div class="skeleton-line skeleton-wide"></div><div class="skeleton-button"></div></article>
+          <article class="skeleton-card"><div class="skeleton-line skeleton-short"></div><div class="skeleton-title"></div><div class="skeleton-line"></div><div class="skeleton-line skeleton-wide"></div><div class="skeleton-button"></div></article>
+          <article class="skeleton-card"><div class="skeleton-line skeleton-short"></div><div class="skeleton-title"></div><div class="skeleton-line"></div><div class="skeleton-line skeleton-wide"></div><div class="skeleton-button"></div></article>
+          <article class="skeleton-card"><div class="skeleton-line skeleton-short"></div><div class="skeleton-title"></div><div class="skeleton-line"></div><div class="skeleton-line skeleton-wide"></div><div class="skeleton-button"></div></article>
+        </div>
+        <div id="resource-grid" class="resource-grid" hidden></div>
+        <div id="empty-state" class="empty-state" hidden>
+          <span class="empty-mark" aria-hidden="true">⌕</span><h3 id="empty-title">No resources found</h3><p id="empty-copy">Try another search or clear a filter.</p>
+          <button class="button button-outline" type="button" data-action="reset-filters">Clear filters</button>
+        </div>
+        <div id="error-state" class="empty-state error-state" hidden>
+          <span class="empty-mark" aria-hidden="true">!</span><h3>We couldn’t reach the library.</h3><p>Check your connection and try loading the collection again.</p>
+          <button class="button button-primary" type="button" data-action="retry-load">Try again</button>
+        </div>
+      </section>
+
+      <section class="community-band wrap" aria-label="Student contributions and requests">
+        <div class="community-copy"><p class="eyebrow eyebrow-light">A LIBRARY BUILT TOGETHER</p><h2>Have something<br>worth sharing?</h2><p>Add a resource for your classmates or ask the subcommittee to find a missing one.</p></div>
+        <div class="community-actions"><button type="button" class="button button-light" data-action="open-contribute">Contribute a resource <span aria-hidden="true">↗</span></button><button type="button" class="button button-ghost-light" data-action="open-request">Request a resource <span aria-hidden="true">＋</span></button></div>
+      </section>
+
+      <section class="contributors wrap" id="contributors" aria-labelledby="contributors-title">
+        <div class="section-heading-row">
+          <div><p class="eyebrow eyebrow-red">PEOPLE MAKE THE LIBRARY</p><h2 id="contributors-title">Top contributors</h2><p class="section-copy">Every shared note saves someone else a little time.</p></div>
+          <span class="local-badge">LOCAL SHOWCASE</span>
+        </div>
+        <div id="contributor-board" class="contributor-board"></div>
+        <p class="privacy-note">This demo leaderboard and badges are saved only in this browser. A shared, campus-wide leaderboard needs a central contribution service.</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer-grid">
+        <div class="footer-about"><a class="footer-brand" href="#top"><img src="https://raw.githubusercontent.com/Com-Adarsh/library-sheet/main/abhimanyu.png" alt="" width="42" height="42"><span>ABHIMANYU<br><b>LEARNING SPACE</b></span></a><p>A digital initiative by the <strong>SFI IMSc Subcommittee</strong>. Named in honor of Comrade Abhimanyu, this platform supports open access to learning resources for every student.</p></div>
+        <div><p class="footer-label">GET IN TOUCH</p><a class="footer-email" href="mailto:sfiimscsubcommittee25@gmail.com">sfiimscsubcommittee25@gmail.com</a><p class="footer-muted">CUSAT · Kochi, Kerala</p></div>
+        <div><p class="footer-label">STAY CONNECTED</p><a class="footer-social" href="https://whatsapp.com/channel/0029VaesYjiHgZWZT1NwWo1z" target="_blank" rel="noopener noreferrer">WhatsApp community <span aria-hidden="true">↗</span></a><a class="footer-social" href="https://www.instagram.com/sfi_imsc_subcommittee_cusat" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <div class="wrap footer-bottom"><span>© 2026 SFI IMSc Subcommittee · CUSAT</span><span>Study · Share · Grow</span></div>
+    </footer>
+  </div>
+
+  <a class="floating-community" href="https://whatsapp.com/channel/0029VaesYjiHgZWZT1NwWo1z" target="_blank" rel="noopener noreferrer" aria-label="Join the SFI IMSc WhatsApp community"><span class="whatsapp-mark" aria-hidden="true">◉</span><span>Join the community</span></a>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="request-dialog" class="modal">
+    <form id="request-form" class="modal-card">
+      <button class="modal-close" type="button" data-action="close-modal" aria-label="Close">×</button>
+      <p class="eyebrow eyebrow-red">HELP US COMPLETE THE SHELF</p><h2>Request a resource</h2>
+      <p class="modal-copy">Tell the subcommittee what’s missing. Submitting opens an email draft addressed to the team.</p>
+      <label class="field-label" for="request-title">Resource or topic <span>*</span></label><input id="request-title" name="title" required maxlength="140" placeholder="e.g. Linear Algebra textbook">
+      <div class="form-pair"><div><label class="field-label" for="request-semester">Semester</label><select id="request-semester" name="semester"><option value="">Any semester</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div><div><label class="field-label" for="request-type">Resource type</label><select id="request-type" name="type"><option>Textbook</option><option>PYQ</option><option>Notes</option><option>Other</option></select></div></div>
+      <label class="field-label" for="request-subject">Subject</label><input id="request-subject" name="subject" maxlength="100" placeholder="Subject name">
+      <label class="field-label" for="request-notes">Anything else to add?</label><textarea id="request-notes" name="notes" rows="3" maxlength="500" placeholder="Edition, year, or a little more detail…"></textarea>
+      <button class="button button-primary button-full" type="submit">Continue to email <span aria-hidden="true">↗</span></button>
+    </form>
+  </dialog>
+
+  <dialog id="contribute-dialog" class="modal">
+    <form id="contribute-form" class="modal-card">
+      <button class="modal-close" type="button" data-action="close-modal" aria-label="Close">×</button>
+      <p class="eyebrow eyebrow-red">PASS IT FORWARD</p><h2>Contribute to the library</h2>
+      <p class="modal-copy">Share a viewable Google Drive resource with the SFI IMSc Subcommittee for review.</p>
+      <label class="field-label" for="contribution-title">Resource title <span>*</span></label><input id="contribution-title" name="title" required maxlength="140" placeholder="Title of textbook, notes, or PYQ">
+      <div class="form-pair"><div><label class="field-label" for="contribution-semester">Semester</label><select id="contribution-semester" name="semester"><option value="1">Semester 1</option><option value="2">Semester 2</option><option value="3">Semester 3</option><option value="4">Semester 4</option><option value="5">Semester 5</option><option value="6">Semester 6</option><option value="7">Semester 7</option><option value="8">Semester 8</option><option value="9">Semester 9</option><option value="10">Semester 10</option></select></div><div><label class="field-label" for="contribution-type">Type</label><select id="contribution-type" name="type"><option value="Notes">Notes</option><option value="PYQ">PYQ</option><option value="Textbook">Textbook</option></select></div></div>
+      <label class="field-label" for="contribution-subject">Subject <span>*</span></label><input id="contribution-subject" name="subject" required maxlength="100" placeholder="e.g. Mathematics">
+      <label class="field-label" for="contribution-link">Google Drive link <span>*</span></label><input id="contribution-link" name="link" required type="url" placeholder="https://drive.google.com/…"><p class="field-hint" id="drive-hint">Set sharing to “Anyone with the link can view”.</p>
+      <label class="field-label" for="contributor-name">Your name (optional)</label><input id="contributor-name" name="contributor" maxlength="60" placeholder="How you’d like to be recognized">
+      <button class="button button-primary button-full" type="submit" id="contribute-submit">Send for review <span aria-hidden="true">↗</span></button>
+      <p class="form-footnote">The current library form does not return a delivery receipt. Your browser will show that a submission was attempted, not verify acceptance.</p>
+    </form>
+  </dialog>
+
+  <dialog id="comments-dialog" class="modal">
+    <div class="modal-card comment-modal-card">
+      <button class="modal-close" type="button" data-action="close-modal" aria-label="Close">×</button>
+      <p class="eyebrow eyebrow-red">STUDENT NOTES</p><h2 id="comments-title">Resource feedback</h2>
+      <p class="modal-copy">Feedback is saved privately in this browser.</p>
+      <div id="comment-list" class="comment-list"></div>
+      <form id="comment-form" class="comment-form"><label class="field-label" for="comment-text">Share a quick note</label><textarea id="comment-text" rows="3" maxlength="400" placeholder="e.g. This PDF is missing page 42…" required></textarea><button class="button button-primary button-full" type="submit">Add note</button></form>
+      <button class="text-button report-button" type="button" data-action="report-active-resource">Request a correction or missing page</button>
+    </div>
+  </dialog>
+
+  <template id="resource-card-template">
+    <article class="resource-card"></article>
+  </template>
+</body>
+</html>
